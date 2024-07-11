@@ -1,20 +1,10 @@
 import { useState } from 'react'
 
-const Button = (props) => {
-  return (
-    <>
-    <button onClick={props.handleClick}>{props.text}</button>
-    </>
-  )
-}
+const Button = ( {handleClick, text} ) => <button onClick={handleClick}>{text}</button>
 
-const Display = (props) => {
-  return (
-    <>
-    <p>{props.text} {props.value}</p>
-    </>
-  )
-}
+const Display = ( {value, text} ) => <p>{text} {value}</p>
+
+const Statistics = ( {statistic, text} ) => <p>{text} {statistic}</p>
 
 const App = () => {
   // save clicks of each button to its own state
@@ -43,9 +33,9 @@ const App = () => {
         <Display value={good} text='good'/>
         <Display value={neutral} text='neutral'/>
         <Display value={bad} text='bad'/>
-        <p>all {all}</p>
-        <p>average {average}</p>
-        <p>positive {positive}%</p>
+        <Statistics statistic={all} text='all'/>
+        <Statistics statistic={average} text='average'/>
+        <Statistics statistic={positive} text='positive'/>
       </div>
     </div>
   )
