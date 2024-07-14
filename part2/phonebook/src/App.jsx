@@ -5,7 +5,6 @@ import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
 import Persons from "./components/Persons";
 
-
 const App = () => {
     const [persons, setPersons] = useState([]);
 
@@ -20,7 +19,6 @@ const App = () => {
                 setPersons(initialPersons)
             })
     }, [])
-    // console.log('render', persons.length, 'persons')
 
     const addPerson = (event) => {
         event.preventDefault();
@@ -42,6 +40,7 @@ const App = () => {
         }
     };
 
+
     const handleNameChange = (event) => {
         setNewName(event.target.value);
     };
@@ -61,6 +60,12 @@ const App = () => {
         );
     };
 
+    const removePerson = person => {
+        personService
+            .remove(person.id)
+            .then(() => setPersons(persons.filter(p => p.id !== person.id)))
+    }
+
     const filteredPersons = getFilteredPersons();
 
     return (
@@ -76,7 +81,7 @@ const App = () => {
                 newNumber={newNumber}
             />
             <h2>Numbers</h2>
-            <Persons filtered={filteredPersons}/>
+            <Persons filtered={filteredPersons} removePerson={removePerson}/>
         </div>
     );
 };
