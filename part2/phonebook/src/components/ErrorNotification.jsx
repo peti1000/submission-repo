@@ -1,8 +1,7 @@
-const Notification = ({ message }) => {
+const ErrorNotification = ({ errorMessage }) => {
 
-    const addStyle = {
-
-        color: 'green',
+    const errorStyle = {
+        color: 'blue',
         background: 'lightgrey',
         fontSize: 20,
         borderStyle: 'solid',
@@ -10,15 +9,13 @@ const Notification = ({ message }) => {
         padding: 10,
         marginBottom: 10
     }
-    if (message === null) {
+    if (errorMessage === null) {
         return null
     }
-
     return (
-        <div style={addStyle} >
-            {message}
+        <div style={errorStyle}>
+            {errorMessage}
         </div>
     )
 }
-
-export default Notification
+export default ErrorNotification
