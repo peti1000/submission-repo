@@ -27,15 +27,19 @@ const Country = ({country}) => {
     )
 }
 
-const CountryFromTwoToTen = ({country}) => {
+const CountryFromTwoToTen = ({country, showCountry}) => {
+
+    const filterCountry = () => showCountry(country.name.common)
     return (
         <>
-            {country.name.common} <br/>
+            {country.name.common}
+            <button onClick={filterCountry}>Show</button>
+            <br/>
         </>
     )
 }
 
-const Countries = ({filteredCountries}) => {
+const Countries = ({filteredCountries, showCountry}) => {
     if (filteredCountries.length > 10) {
         return (
             'Too many matches, specify another filter'
@@ -45,7 +49,7 @@ const Countries = ({filteredCountries}) => {
             <>
                 <ul>
                     {filteredCountries.map(country =>
-                        <CountryFromTwoToTen key={country.name.common} country={country}/>)}
+                        <CountryFromTwoToTen key={country.name.common} country={country} showCountry={showCountry}/>)}
                 </ul>
             </>
         )
@@ -56,6 +60,16 @@ const Countries = ({filteredCountries}) => {
                 {filteredCountries.map(country =>
                     <Country key={country.name.common} country={country}/>)}
             </ul>
+        </>
+    )
+}
+
+const CountryForm = ({handleFilterChange}) => {
+    return (
+        <>
+            <form>
+                find countries <input onChange={handleFilterChange}/>
+            </form>
         </>
     )
 }
@@ -74,6 +88,9 @@ const App = () => {
             })
     })
 
+    const showCountry = (country) => {
+        setFilteredCountry(country)
+    }
 
     const handleFilterChange = (event) => {
         setFilteredCountry(event.target.value)
@@ -83,10 +100,8 @@ const App = () => {
 
     return (
         <>
-            <form>
-                find countries <input onChange={handleFilterChange}/>
-            </form>
-            <Countries filteredCountries={filteredCountries}/>
+            <CountryForm handleFilterChange={handleFilterChange}/>
+            <Countries filteredCountries={filteredCountries} showCountry={showCountry}/>
 
         </>
     )
